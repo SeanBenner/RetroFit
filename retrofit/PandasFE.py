@@ -12,8 +12,8 @@ class FE(FeatureEngineering):
         LagColumnNames=None,
         DateColumnName=None,
         ByVariables=None,
-        LagPeriods=1,
-        ImputeValue=-1,
+        LagPeriods=[1],
+        ImputeValue=-50,
         Sort=True,
         use_saved_args=False,
     ):
@@ -56,7 +56,7 @@ class FE(FeatureEngineering):
                 if ByVariables:
                     data[Ref1] = data.groupby(ByVariables)[lcn].shift(periods=lp,)
                 else:
-                    data[Ref1] = data.loc[:, lcn].shift(lp, axis=1)
+                    data[Ref1] = data.loc[:, lcn].shift(lp)
                 if ImputeValue:
                     data[Ref1].fillna(ImputeValue, inplace=True)
 
